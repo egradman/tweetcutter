@@ -132,12 +132,13 @@ class Surface(object):
               height * self.device_units_per_user_units)
         else:
           self.cairo = usersurface
-          self.width, self.height = usersurface.get_width(), usersurface.get_height()
-        self.page_sizes.append((self.width, self.height))
+          #self.width, self.height = usersurface.get_width(), usersurface.get_height()
+        #self.page_sizes.append((self.width, self.height))
         self.context = cairo.Context(self.cairo)
         # We must scale the context as the surface size is using physical units
         self.context.scale(
-            self.device_units_per_user_units, self.device_units_per_user_units)
+            2.54, 2.54
+	)
         # Initial, non-rounded dimensions
         self.set_context_size(width, height, viewbox)
         self.context.move_to(0, 0)
@@ -156,7 +157,7 @@ class Surface(object):
         PNG. User units are pixels.
 
         """
-        return self.points_per_pixel
+        return (72/25.4*280)
 
     def _create_surface(self, width, height):
         """Create and return ``(cairo_surface, width, height)``."""
